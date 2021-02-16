@@ -1,0 +1,2 @@
+for e in range(1,21):    # From the number I want to count to the number where I want to finish +1.
+    print(e, end=",")    # To print all the numbers in the same line I use the end argument in the print function.
