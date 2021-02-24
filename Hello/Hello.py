@@ -1,2 +1,6 @@
 print("Hello world. This is my first Pycharm file")
-print("This is my first practice ")
+print("This is my second sentence in this file")
+print("Almost last sentence")
+print("Almost las sentence")
+print("Almost last sentence")
+print("Last sentence. Bye!!!!!")
