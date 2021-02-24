@@ -1,7 +1,7 @@
 def fibon(n):
     x = 0
     y = 1
-    fibonacci.list = [x,y]
+    fibonacci_list = [x, y]
     for i in range(0, n-1):
         fn = x + y
         fibonacci_list.append(fn)
