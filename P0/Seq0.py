@@ -44,3 +44,9 @@ def seq_count(seq):
     return {"A": a, "C": c, "G": g, "T": t}
     gene_dict = {}
     gene_dict["A"] = a"""
+
+#For Ex6
+
+def seq_reverse(seq):
+    reverse = seq[::-1]
+    return reverse
