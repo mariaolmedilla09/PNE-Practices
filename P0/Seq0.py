@@ -65,3 +65,4 @@ def seq_complement(seq):
         elif gene == "G":
             complement_seq += "C"
     return complement_seq
+
