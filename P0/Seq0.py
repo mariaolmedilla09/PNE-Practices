@@ -50,3 +50,18 @@ def seq_count(seq):
 def seq_reverse(seq):
     reverse = seq[::-1]
     return reverse
+
+#For Ex7
+
+def seq_complement(seq):
+    complement_seq = " "
+    for gene in seq:
+        if gene == "A":
+            complement_seq += "T"
+        elif gene == "T":
+            complement_seq += "A"
+        elif gene == "C":
+            complement_seq += "G"
+        elif gene == "G":
+            complement_seq += "C"
+    return complement_seq
