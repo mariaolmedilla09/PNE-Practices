@@ -8,6 +8,7 @@ GENE_FOLDER = "./Sequences/"
 gene_list = ["U5", "ADA", "FRAT1", "FXN"]
 base_list = ["A", "C", "T", "G" ]
 
+print("-----| Exercise 4|-----")
 
 for gene in gene_list:
     sequence = Seq0.seq_read_fasta(GENE_FOLDER + gene + ".txt")

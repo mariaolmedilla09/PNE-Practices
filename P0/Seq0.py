@@ -51,18 +51,19 @@ def seq_reverse(seq):
     reverse = seq[::-1]
     return reverse
 
-#For Ex7
+#For Ex7:
 
 def seq_complement(seq):
     complement_seq = " "
+    compl_dict = {"A": "T", "T": "A", "C": "G", "G": "C"}
     for gene in seq:
-        if gene == "A":
-            complement_seq += "T"
-        elif gene == "T":
+        if gene == compl_dict["A"]:
             complement_seq += "A"
-        elif gene == "C":
-            complement_seq += "G"
-        elif gene == "G":
+        elif gene == compl_dict["T"]:
+            complement_seq += "T"
+        elif gene == compl_dict["C"]:
             complement_seq += "C"
+        elif gene == compl_dict["G"]:
+            complement_seq += "G"
     return complement_seq
 
