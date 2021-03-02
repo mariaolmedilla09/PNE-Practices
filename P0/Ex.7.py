@@ -1,3 +1,5 @@
+# Implement the seq_complement(seq) function, that calculates a new sequence composed of the complement base of each of the original bases.
+# A and T are complement, as well as C and G.
 import Seq0
 FOLDER = "./Sequences/"
 ID = "U5.txt"

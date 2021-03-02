@@ -1,3 +1,6 @@
+# Which is the most frequent base in each gene?
+# Output: number of times that the bases appear + the most common one.
+
 import Seq0
 
 GENE_FOLDER = "./Sequences/"
