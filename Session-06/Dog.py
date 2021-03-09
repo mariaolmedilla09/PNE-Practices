@@ -18,6 +18,15 @@ class Dog:
         if self.name = name
         print("This is {}, and I'm sitting down here".format(self.name))"""
 
+    def rollover(self):
+        pass
+
+    def sitdown(self):
+        print("Yes, I will sit down")
+
+    def sleep(self):
+        pass
+
 ares = Dog('ares',10) # Passing parameters to the class to create an instance of the "Dog class".
 
 toby = Dog('toby',21)
