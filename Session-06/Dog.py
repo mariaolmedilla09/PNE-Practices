@@ -6,30 +6,31 @@ class Dog:
         self.age = age
     #pass   # A way to tell python not to do anything (There's nothing inside this class).
 
-    def sit (self):
-        print("This is {}, and I'm sitting down here".format(self.name))
+    def sit(self):
+        print('This is {}, and Im sitting down here'.format(self.name))
 
-   """def set_name(self, name):
+"""def set_name(self, name):
         if self.name = name
         print("This is {}, and I'm sitting down here".format(self.name))"""  # This function allows us change the internal parameters by "setters and getters".
 
-
-    """def set_name(self, name):
+"""def set_name(self, name):
         if self.name = name
         print("This is {}, and I'm sitting down here".format(self.name))"""
 
-    def rollover(self):
-        pass
+def rollover(self):
+    pass
 
-    def sitdown(self):
-        print("Yes, I will sit down")
-
-    def sleep(self):
-        pass
+def sitdown(self):
+    print("Yes, I will sit down")   #This method and the previous one should be one indent inner, but it launches an error.
 
 ares = Dog('ares',10) # Passing parameters to the class to create an instance of the "Dog class".
 
-toby = Dog('toby',21)
+ares.name ='trueno'
+ares.age = 1
+ares.set_name('toby')
+print(ares.name)
+
+
 
 ares.name = "trueno"  # Now I can access the information that is inside the object.
 ares.age = 1  # I have this capability to change everything that is inside the class.

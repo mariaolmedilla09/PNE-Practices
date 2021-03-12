@@ -11,4 +11,4 @@ Seq.print_seqs(seq_list1)
 
 print()
 print("List 2: ")
-Seq.print.seqs(seq_list2)
+Seq.print_seqs(seq_list2)
