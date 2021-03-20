@@ -1,7 +1,7 @@
 import socket
 
 # Configure the Server's IP and PORT
-PORT = 6123
+PORT = 12300  # It has a different port than 1 because 2 servers cannot have the same port.
 IP = "127.0.0.1"
 MAX_OPEN_REQUESTS = 5
 

@@ -4,7 +4,7 @@
 import socket
 
 # SERVER IP, PORT
-PORT = 6123
+PORT = 12000
 IP = "127.0.0.1"
 
 # First, create the socket
