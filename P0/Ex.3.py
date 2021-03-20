@@ -10,4 +10,3 @@ for gene in gene_list:
     sequence = Seq0.seq_read_fasta(GENE_FOLDER + gene + ".txt")
     print("Gene " + gene + " ---> Length:" + str(Seq0.seq_len(sequence)))
 
-
