@@ -37,8 +37,8 @@ try:
         clientsocket.send(message.encode())   # Change made to encode the string directy (without an intermediate step)
         clientsocket.close()
 
-except socket.error:
-    print("Problems using port {}. Do you have permission?".format(PORT))
+except Exception as e:
+    print(e)
 
 except KeyboardInterrupt:
     print("Server stopped by the user")
