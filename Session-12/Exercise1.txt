@@ -1,0 +1,13 @@
+Run the web-server-2. Open the browser and connect to the URL http://127.0.0.1:8080/hello
+Which is the request line? Request line: GET /hello HTTP/1.1 (GET /favicon.ico HTTP/1.1  : this is the icon, the default behaviour of the webpage)
+Which is the resource name that the client is asking for? (Path) /hello  (the part after the port)
+
+
+Run the web-server-2. Open the browser and connect to the URL http://127.0.0.1:8080/file.html
+Which is the request line? GET /file.html HTTP/1.1
+Which is the resource name that the client is asking for? (Path) /file.html
+
+
+Run the web-server-2. Open the browser and connect to the URL http://127.0.0.1:8080/hi/there?name=virus&type=corona
+Which is the request line? Request line: GET /hi/there?name=virus&type=corona HTTP/1.1
+Which is the resource name that the client is asking for? (Path) /hi/there?name=virus&type=corona

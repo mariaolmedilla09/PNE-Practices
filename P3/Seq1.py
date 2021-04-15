@@ -1,4 +1,4 @@
-import termcolor
+#import termcolor
 from pathlib import Path
 
 class Seq:
@@ -62,7 +62,7 @@ class Seq:
 
     def count_bases(self):  # Cleaner way to do it, instead of using a pass in the case of the null and invalid sequences (DOUBT)
         a, c, g, t = 0, 0, 0, 0
-        if  not self.strbases == Seq.NULL_SEQUENCE and not self.strbases == Seq.INVALID_SEQUENCE:
+        if not self.strbases == Seq.NULL_SEQUENCE and not self.strbases == Seq.INVALID_SEQUENCE:
             for ch in self.strbases:
                 if ch == "A":
                     a += 1
