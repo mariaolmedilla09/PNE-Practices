@@ -3,7 +3,7 @@ Which is the request line? Request line: GET /hello HTTP/1.1 (GET /favicon.ico H
 Which is the resource name that the client is asking for? (Path) /hello  (the part after the port)
 
 
-Run the web-server-2. Open the browser and connect to the URL http://127.0.0.1:8080/file.html
+Rep URL http://127.0.0.1:8080/file.html
 Which is the request line? GET /file.html HTTP/1.1
 Which is the resource name that the client is asking for? (Path) /file.html
 

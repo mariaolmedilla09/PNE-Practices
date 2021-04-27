@@ -11,6 +11,7 @@ def process_client(s):
     # -- Receive the request message
     req_raw = s.recv(2000)
     req = req_raw.decode()
+
     print("Message FROM CLIENT: ")
     termcolor.cprint(req, "green")
 

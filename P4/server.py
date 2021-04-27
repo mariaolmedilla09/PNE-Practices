@@ -1,11 +1,16 @@
 import socket
 import termcolor
+import pathlib
 
 
 # -- Server network parameters
 IP = "127.0.0.1"
-PORT = 8084
+PORT = 8080
+HTML_ASSETS = "./html/"
 
+def read_html_file(filename):
+    content = pathlib.Path(filename).read_text()
+    return content
 
 def process_client(s):
     # -- Receive the request message
@@ -16,8 +21,10 @@ def process_client(s):
     lines = req.split('\n')
     # -- The request line is the first
     req_line = lines[0]
+    path_name = req_line.split(' ')[1]
+    print("Resource requested: ", req_line)
 
-    print("Request line: ", end="")
+    #print("Request line: ", end="")
     termcolor.cprint(req_line, "green")
 
     # -- Generate the response message
@@ -29,26 +36,37 @@ def process_client(s):
 
     # This new contents are written in HTML language (because we write html instead of plain text)
     body = """
-    <!DOCTYPE html>
-    <html lang="en" dir="ltr">
-      <head>
-        <meta charset="utf-8">
-        <title>Green server</title>
-      </head>
-      <body style="background-color: lightgreen;">
-        <h1>GREEN SERVER</h1>
-        <p>I am the Green Server! :-)</p>
-      </body>
-    </html>
-    """
+         """
     # -- Status line: We respond that everything is ok (200 code)
     status_line = "HTTP/1.1 200 OK\n"
 
     # -- Add the Content-Type header
     header = "Content-Type: text/html\n"
 
+    if path_name == "/":
+        body = read_html_file(HTML_ASSETS + "index.html")
+    # The following 2 lines of code are devoted to ccompress the following "if's" in which the same pattern is followed in just 2 lines.
+    elif "/info/" in path_name:
+        try:
+            # Where is the letter? string.split(' ')[-1] "A or G or C or T"
+            body = read_html_file(HTML_ASSETS + path_name.split('/')[-1] + ".html")
+        except FileNotFoundError:
+            body = read_html_file(HTML_ASSETS + "error.html")
+    else:
+        body = read_html_file(HTML_ASSETS + "error.html")
+
+
+    """if path_name == "/info/A":
+        body = read_html_file(HTML_ASSETS + "A.html")
+    elif path_name == "/info/C":
+        body = read_html_file(HTML_ASSETS + "C.html")
+    elif path_name == "/info/G":
+        body = read_html_file(HTML_ASSETS + "G.html")
+    elif path_name == "/info/T":
+        body = read_html_file(HTML_ASSETS + "T.html")"""
+
     # -- Add the Content-Length
-    header += f"Content-Length: 5\n" #as len is 5, the browser won´t show anything
+    header += f"Content-Length: {len(body)}\n"
 
     # -- Build the message by joining together all the parts
     response_msg = status_line + header + "\n" + body
