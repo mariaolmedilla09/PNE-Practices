@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Green server</title>
+      </head>
+      <body>
+        <h1>Seq server</h1>
+        <p>Access to the server</p>
+        <!-- Navigate to localhost:port/test -->
+        <hr> <!--To create a line between options -->
+        <form action="ping" method="get">   <!--I'm just creating this extra button to check how paths work when working with forms.-->
+            Is the server available?: <input type="submit" value="PING"> <!-- tHW VALUE DOES NOT MATTER VERY MUCH, THE IMPORTANT THING THIS THE -->
+        <form>
+        <hr>
+        <form action="get" method="get">
+            Get a sequence. Select sequence number:
+          <select name="sequence">  <!--IN THIS CASE JINJA BECOMES VERY USEFUL, BECAUSE WE DON'T HAVE TO REPEAT EVERYTHING FOR EACH OF THE OPTIONS WE HAVE -->
+            {% for n in range(0, context.n_sequences) %}   <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
+              <option value="{{n}}">{{n}}</option>
+            {% endfor%}
+          </select>
+          <input type="submit" value="GET">
+        <form>
+       <hr>
+        <form action="gene" method="get">
+            Get a gene. Select the name:
+          <select name="gene">  <!--IN THIS CASE JINJA BECOMES VERY USEFUL, BECAUSE WE DON'T HAVE TO REPEAT EVERYTHING FOR EACH OF THE OPTIONS WE HAVE -->
+            {% for n in context.list_genes %}   <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
+              <option value="{{n}}">{{n}}</option>
+            {% endfor%}
+          </select>
+          <input type="submit" value="GENE">
+        <form>
+       <hr>
+      </body>
+    </html>
