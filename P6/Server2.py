@@ -18,7 +18,7 @@ def read_template_html_file(filename):
     return content"""  # We're not needing this function anymore here.
 
 # Define the Server's port
-PORT = 8080
+PORT = 8081
 
 LIST_SEQUENCES = ["AGCTGATCGATGGGTAGCATGCT", "AGCTAGTGTGTTGGTTACTGATCGCAT", "AGCTGTTTGATGCTAGTCGATCA", "CATGATGCTGATAGATGATCGTAGTAGGCTA", "CATGTAGTCGTAGTCGTATCGATGCTAGTAGCT"]
 
@@ -71,15 +71,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             gene = arguments["gene"][0]
             contents = su.gene(gene)
         elif path_name == "/operation":
-            if arguments ["results"][0] == "Rev":
-                sequence = arguments ["results"][0]
+            if arguments["results"][0] == "Rev":
+                sequence = arguments["results"][0]
                 contents = su.rev(sequence)
-            elif arguments ["results"] [0] == "Comp":
-                sequence = arguments ["sequence"][0]
-                contents = su.compl(sequence)
-            elif arguments ["results"][0] == "Info":
-                sequence = arguments ["sequence"][0]
-                contents = su.compl(sequence)
+            elif arguments["results"][0] == "Comp":
+                sequence = arguments["sequence"][0]
+                contents = su.comp(sequence)
+            elif arguments["results"][0] == "Info":
+                sequence = arguments["sequence"][0]
+                contents = su.comp(sequence)
         else:
             contents = su.read_template_html_file("./html/Error.html").render()
 
@@ -89,7 +89,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # Define the content-type header:
         self.send_header('Content-Type', 'text/html') # Here we specify the content that we are sending.
-        self.send_header('Content-Length', len(contents.encode()))
+        self.send_header('Content-Length', str(len(contents.encode())))
 
         # The header is finished
         self.end_headers()

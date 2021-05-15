@@ -15,7 +15,7 @@
     <form action="get" method="get">
         Get a sequence. Select sequence number:
       <select name="sequence">
-        {% for n in range(0, context.n_sequences) %}
+        {% for n in range(0, context.n_sequences) %}  <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
           <option value="{{n}}">{{n}}</option>
         {% endfor %}
       </select>
@@ -24,8 +24,8 @@
     <hr>
     <form action="gene" method="get">
           Get a gene. Select the name:
-          <select name="gene">
-          {% for n in context.list_genes %}
+          <select name="gene">  <!--IN THIS CASE JINJA BECOMES VERY USEFUL, BECAUSE WE DON'T HAVE TO REPEAT EVERYTHING FOR EACH OF THE OPTIONS WE HAVE -->
+          {% for n in context.list_genes %}  <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
             <option value="{{n}}">{{n}}</option>
           {% endfor %}
           </select>
