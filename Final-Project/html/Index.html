@@ -2,43 +2,37 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Bases server</title>
+    <title>Welcome!</title>
   </head>
   <body>
-    <h1>Seq server</h1>
-    <p>Access to the server</p>
+    <h1>Browsing Human and Vertebrates genome</h1>
+    <h1>BASIC Level Services</h1>
+
     <hr>
-    <form action="ping" method="get">
-      Is the server available?: <input type="submit" value="PING">
+    <p>1) List of species in the genome database</p>
+
+    <form action="listSpecies" method="get">
+        Limit: <input type="text" name="limit">
+        <input type="submit" value="Send">
     </form>
+
     <hr>
-    <form action="get" method="get">
-        Get a sequence. Select sequence number:
-      <select name="sequence">
-        {% for n in range(0, context.n_sequences) %}  <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
-          <option value="{{n}}">{{n}}</option>
-        {% endfor %}
-      </select>
-      <input type="submit" value="GET">
+    <p>2) karyotype by species</p>
+    <form action="karyotype" method="get">
+        species: <input type="text" name="species">
+        <input type="submit" value="Send">
     </form>
-    <hr>
-    <form action="gene" method="get">
-          Get a gene. Select the name:
-          <select name="gene">  <!--IN THIS CASE JINJA BECOMES VERY USEFUL, BECAUSE WE DON'T HAVE TO REPEAT EVERYTHING FOR EACH OF THE OPTIONS WE HAVE -->
-          {% for n in context.list_genes %}  <!-- We do not need to use {{}} when accessing to something inside the loop, as we do in other cases -->
-            <option value="{{n}}">{{n}}</option>
-          {% endfor %}
-          </select>
-        <input type="submit" value="GENE">
-      </form>
-      <hr>
-        <form action="operation" method="get">
-            write a sequence <input type="text" name="sequence">
-            Select operation:
-              <input type="radio" name="results" value="Info"> Info
-              <input type="radio" name="results" value="Comp"> Comp
-              <input type="radio" name="results" value="Rev"> Rev
-            <input type="submit" value="OPERATE!!">
-          </form>
+
+    <p>3) Chromosome</p>
+    <form action="chromosome_length" method="get">
+        species: <input type="text" name="species">
+        chromosome length: <input type="text" name="length">
+        <input type="submit" value="Send">
+    </form>
+
+
+
+
+
   </body>
 </html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Seq server</title>
+      </head>
+        <h1>SEQUENCE {{context.sequence}}</h1>
+        {% for n in context.info_sequence %}
+            <P>{{n}}</P>
+        {% endfor %}
+        <a href="/">Main page</a>
+      </body>
+    </html>

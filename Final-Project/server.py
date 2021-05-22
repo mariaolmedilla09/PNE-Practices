@@ -6,12 +6,6 @@ from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
 PORT = 8080
-socketserver.TCPServer.allow_reuse_address = True
-
-
-
-
-
 #dict for general.html
 BASES_INFORMATION = {
     "A":{"link": "https://en.wikipedia.org/wiki/Adenine", "formula": "C5H5N5", "name": "ADENINE", "color": "lightgreen"},
@@ -22,9 +16,7 @@ BASES_INFORMATION = {
 
 LIST_SEQUENCES = ["AAGCTGCTACGTACGTACAGCT", "ACGGATCGCATCGATCGTACGATCGATCATC", "CGATAGCTGATCGATCATGCTACGTGTACG", "AGTAGCTAGTGCTACGATTATCGATCA", "CAGTCGATCGATTACG"]
 LIST_GENES = ["ADA", "FRAT1", "U5", "FXN", "RNU6_269P"]
-
-
-
+socketserver.TCPServer.allow_reuse_address = True
 
 def read_html_file(filename):
     content = pathlib.Path(filename).read_text()
@@ -48,13 +40,24 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         context = {}
         if path_name == "/":
-            context["n_sequences"] = len(LIST_SEQUENCES)
-            context["list_genes"] = LIST_GENES
             contents = su.read_template_html_file("./html/index.html").render(context=context)
+
+        elif path_name == "/listSpecies":
+            if arguments['limit'][0]:
+                limit = arguments['limit'][0]
+                contents = su.list_species(limit)
+
+        elif path_name == "/karyotype":
+            if arguments['species'][0]:
+                contents = su.karyotype_by_specie(arguments['species'][0])
+
+        elif path_name == "/chromosome_length":
+            if arguments['species'][0] and arguments['length'][0]:
+                contents = su.chromosome_length(arguments['species'][0],
+                                                  arguments['length'][0])
+
         elif path_name == "/test":
             contents = su.read_template_html_file("./html/test.html").render()
-        elif path_name == "/ping":
-            contents = su.read_template_html_file("./html/ping.html").render()
         elif path_name == "/get":
             number_sequence = arguments["sequence"][0]
             contents = su.get(LIST_SEQUENCES, number_sequence)
@@ -99,10 +102,10 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)
 
     # -- Main loop: Attend the client. Whenever there is a new
+    # -- clint, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-    # -- clint, the handler is called
         print("")
-        print("Stopped by the user")
+        print("Stoped by the user")
         httpd.server_close()
