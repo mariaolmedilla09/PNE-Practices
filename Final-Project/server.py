@@ -5,6 +5,7 @@ import jinja2
 from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
+
 PORT = 8080
 #dict for general.html
 BASES_INFORMATION = {
