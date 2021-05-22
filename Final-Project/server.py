@@ -7,7 +7,7 @@ import server_utils as su
 
 
 PORT = 8080
-#dict for general.html
+
 BASES_INFORMATION = {
     "A":{"link": "https://en.wikipedia.org/wiki/Adenine", "formula": "C5H5N5", "name": "ADENINE", "color": "lightgreen"},
 "C":{"link": "https://en.wikipedia.org/wiki/Cytosine", "formula": "C4H5N30", "name": "CYTOSINE", "color": "yellow"},
