@@ -6,6 +6,12 @@ from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
 PORT = 8080
+socketserver.TCPServer.allow_reuse_address = True
+
+
+
+
+
 #dict for general.html
 BASES_INFORMATION = {
     "A":{"link": "https://en.wikipedia.org/wiki/Adenine", "formula": "C5H5N5", "name": "ADENINE", "color": "lightgreen"},
@@ -16,7 +22,9 @@ BASES_INFORMATION = {
 
 LIST_SEQUENCES = ["AAGCTGCTACGTACGTACAGCT", "ACGGATCGCATCGATCGTACGATCGATCATC", "CGATAGCTGATCGATCATGCTACGTGTACG", "AGTAGCTAGTGCTACGATTATCGATCA", "CAGTCGATCGATTACG"]
 LIST_GENES = ["ADA", "FRAT1", "U5", "FXN", "RNU6_269P"]
-socketserver.TCPServer.allow_reuse_address = True
+
+
+
 
 def read_html_file(filename):
     content = pathlib.Path(filename).read_text()
@@ -91,10 +99,10 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)
 
     # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
+    # -- clint, the handler is called
         print("")
         print("Stopped by the user")
         httpd.server_close()

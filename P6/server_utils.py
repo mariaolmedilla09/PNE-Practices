@@ -22,6 +22,9 @@ def ping(cs):
     response = "OK!\n"
     cs.send(response.encode())
 
+def get(cs, list_sequences, argument):
+    cs.send(get(list_sequences, argument).encode())
+
 def get(list_sequences, argument):
     sequence = list_sequences[int(argument)]
     context = {
@@ -50,7 +53,7 @@ def info(argument):
     contents = read_template_html_file("./html/info.html").render(context=context)
     return contents
 
-def comp(cs, argument):
+def comp(argument):
     #print_colored("COMP", "yellow")
     print("COMP")
     sequence = Seq(argument)
@@ -59,7 +62,7 @@ def comp(cs, argument):
     contents = read_template_html_file("./html/comp.html").render(context=context)
     return contents
 
-def rev(cs, argument):
+def rev(argument):
     #print_colored("REV", "yellow")
     print("REV")
     sequence = Seq(argument)
