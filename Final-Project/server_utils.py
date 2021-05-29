@@ -52,7 +52,7 @@ def comp(argument):
     return contents
 
 
-def karyotype_by_specie(argument):
+def karyotype_by_specie(argument, return_html):
     species = argument
     species_fmt = species.replace(' ', '_').lower()
     endpoint_by_specie = 'https://rest.ensembl.org/info/assembly/{}?content-type=application/json'.format(species_fmt)
@@ -62,9 +62,13 @@ def karyotype_by_specie(argument):
     else:
         response = 'karyotype not available for that species'
     context = {'karyotype': response, 'species': species}
-    return read_template_html_file("./html/karyotype.html").render(context=context)
 
-def chromosome_length(species, length_name):
+    if return_html:
+        return read_template_html_file("./html/karyotype.html").render(context=context)
+    else:
+        return context
+
+def chromosome_length(species, length_name, return_html):
 
     species_fmt = species.replace(' ', '_').lower()
     endpoint_by_specie = 'https://rest.ensembl.org/info/assembly/{}?content-type=application/json'.format(species_fmt)
@@ -75,20 +79,64 @@ def chromosome_length(species, length_name):
                 response = e['length']
                 break
         context = {'length_chromosome': response, 'species': species}
-        return read_template_html_file("./html/chromosome_length.html").render(context=context)
+        if return_html:
+            return read_template_html_file("./html/chromosome_length.html").render(context=context)
+        else:
+            return context
 
     else:
-        return read_template_html_file("./html/error.html").render()
+        if return_html:
+            return read_template_html_file("./html/error.html").render()
+        else:
+            return {'error' : ''}
 
 
+def get_gene_id_by_name(gene_name):
+    genes_dict = {
+        "FRAT1": "ENSG00000165879",
+        "ADA": "ENSG00000196839",
+        "FXN": "ENSG00000165060",
+        "RNU6_269P": "ENSG00000212379",
+        "MIR633": "ENSG00000207552",
+        "TTTY4C": "ENSG00000228296",
+        "RBMY2YP": "ENSG00000227633",
+        "FGFR3": "ENSG00000068078",
+        "KDR": "ENSMUSG00000062960",
+        "ANK2": "ENSG00000145362"
+    }
+    return genes_dict[gene_name]
 
-def list_species(argument):
+
+def gene_sequence(gene_name, return_html):
+    context = {}
+    try:
+        url_gene_seq = 'https://rest.ensembl.org/sequence/id/{0}?content-type=text/plain'.\
+            format(get_gene_id_by_name(gene_name))
+        r = requests.get(url_gene_seq).text
+    except:
+        if return_html:
+            return read_template_html_file("./html/error.html").render()
+        else:
+            return {'error': ''}
+
+    context['gene_name'] = gene_name
+    context['sequence'] = r
+    if return_html:
+        return read_template_html_file("./html/gene_sequence.html").render(context=context)
+    else:
+        return context
+
+
+def list_species(argument, return_html):
 
     context = {}
     if len(argument) > 0:
         context["limit"] = argument
     else:
-        return read_template_html_file("./html/error.html").render()
+        if return_html:
+            return read_template_html_file("./html/error.html").render()
+        else:
+            return {'error' : ''}
 
     limit_int = int(argument)
 
@@ -101,7 +149,10 @@ def list_species(argument):
         len_list_of_species_tot = len(r['species'])
         print(len_list_of_species_tot)
         if limit_int > len_list_of_species_tot:
-            return read_template_html_file("./html/error.html").render()
+            if return_html:
+                return read_template_html_file("./html/error.html").render()
+            else:
+                return {'error': ''}
 
         for specie_data in r['species']:
             list_of_species.append(specie_data['common_name'])
@@ -110,19 +161,19 @@ def list_species(argument):
 
     context['len_species'] = len_list_of_species_tot
 
+    if return_html:
+        if len_list_of_species_tot > 1:
+            pretty_str_list_of_species = '-' + list_of_species[0] + '<br /> -'
+            pretty_str_list_of_species += '<br /> -'.join(list_of_species[1:])
+        elif len_list_of_species_tot == 1:
+            pretty_str_list_of_species = '-' + list_of_species[0]
+        else: pretty_str_list_of_species = ''
+        context["list_species"] = pretty_str_list_of_species
+        return read_template_html_file("./html/list_species.html").render(context=context)
 
-    if len_list_of_species_tot > 1:
-        pretty_str_list_of_species = '-' + list_of_species[0] + '<br /> -'
-        pretty_str_list_of_species += '<br /> -'.join(list_of_species[1:])
-
-    elif len_list_of_species_tot == 1:
-        pretty_str_list_of_species = '-' + list_of_species[0]
-
-    else: pretty_str_list_of_species = ''
-
-    context["list_species"] = pretty_str_list_of_species
-    contents = read_template_html_file("./html/list_species.html").render(context=context)
-    return contents
+    else:
+        context["list_species"] = list_of_species
+        return context
 
 
 def rev(argument):

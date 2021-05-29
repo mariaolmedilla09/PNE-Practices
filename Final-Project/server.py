@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import pathlib
 import jinja2
+import json
 from urllib.parse import urlparse, parse_qs
 import server_utils as su
 
@@ -43,51 +44,76 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if path_name == "/":
             contents = su.read_template_html_file("./html/index.html").render(context=context)
 
+        elif path_name == "/geneSeq":
+            if 'gene_name' in arguments and not 'json' in arguments:
+                contents = su.gene_sequence(arguments['gene_name'][0], True)
+            elif 'gene_name' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.gene_sequence(arguments['gene_name'][0], False)
+                else:
+                    contents = {'error': 'json argument must be 1 to return json output'}
+            else:
+                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+
         elif path_name == "/listSpecies":
-            if arguments['limit'][0]:
-                limit = arguments['limit'][0]
-                contents = su.list_species(limit)
+            if 'limit' in arguments and not 'json' in arguments:
+                contents = su.list_species(arguments['limit'][0], True)
+            elif 'limit' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.list_species(arguments['limit'][0], False)
+                else:
+                    contents = {'error': 'json argument must be 1 to return json output'}
+            else:
+                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/karyotype":
-            if arguments['species'][0]:
-                contents = su.karyotype_by_specie(arguments['species'][0])
+            if 'species' in arguments and not 'json' in arguments:
+                contents = su.karyotype_by_specie(arguments['species'][0], True)
+            elif 'species' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.karyotype_by_specie(arguments['species'][0], False)
+                else:
+                    contents = {'error': 'json argument must be 1 to return json output'}
+            else:
+                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/chromosome_length":
-            if arguments['species'][0] and arguments['length'][0]:
+            if 'species' in arguments and 'length' in arguments and not 'json' in arguments:
                 contents = su.chromosome_length(arguments['species'][0],
-                                                  arguments['length'][0])
-
-        elif path_name == "/test":
-            contents = su.read_template_html_file("./html/test.html").render()
-        elif path_name == "/get":
-            number_sequence = arguments["sequence"][0]
-            contents = su.get(LIST_SEQUENCES, number_sequence)
-        elif path_name == "/gene":
-            gene = arguments["gene"][0]
-            contents = su.gene(gene)
-        elif path_name == "/operation":
-            if arguments['calculation'][0] == 'Rev':
-                seq = arguments['sequence'][0]
-                contents = su.rev(seq)
-            elif arguments['calculation'][0] == 'Info':
-                seq = arguments['sequence'][0]
-                contents = su.info(seq)
-            elif arguments['calculation'][0] == 'Comp':
-                seq = arguments['sequence'][0]
-                contents = su.comp(seq)
+                                                  arguments['length'][0], True)
+            elif 'species' in arguments and 'length' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.chromosome_length(arguments['species'][0],
+                                                  arguments['length'][0], False)
+                else:
+                    contents = {'error': 'json argument must be 1 to return json output'}
             else:
-                pass
+                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+
         else:
             contents = su.read_template_html_file("./html/error.html").render()
 
         # Generating the response message
-        self.send_response(200)
-        self.send_header('Content-Type', 'text/html')
-        self.send_header('Content-Length', len(contents.encode()))
-        # The header is finished
-        self.end_headers()
-        # Send the response message
-        self.wfile.write(contents.encode())
+        if type(contents) == str:
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(contents.encode()))
+            # The header is finished
+            self.end_headers()
+            # Send the response message
+            self.wfile.write(contents.encode())
+        elif type(contents) == dict:
+            contents_str = json.dumps(contents)
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/json')
+            self.send_header('Content-Length', len(contents_str.encode()))
+            # The header is finished
+            self.end_headers()
+            # Send the response message
+            self.wfile.write(contents_str.encode())
+        else:
+            pass
+
         return
 
 
@@ -108,5 +134,5 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("")
-        print("Stoped by the user")
+        print("Stopped by the user")
         httpd.server_close()
