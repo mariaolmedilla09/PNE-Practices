@@ -1,0 +1,41 @@
+Test report BASIC LEVEL
+------------------------
+
+---> listSpecies endpoint
+
+* TEST 1: When it works perfectly with an introduced limit:
+
+* Input:
+
+http:// localhost:8080/listSpecies?limit=10
+
+* Output:
+
+<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>List of species</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>The total number of species available in Ensembl is: 310</p>
+      <p>The limit you have selected is: 4</p>
+      <p>The list with the names of the species is the following:</p>
+        <p>-little spotted kiwi<br /> -Indian glassy fish<br /> -blue tit<br /> -narwhal</p>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+ * TEST 2: When a limit is not introduced:
+
+ * Input:
+
+ http:// localhost:8080/listSpecies?limit=
+
+ * Output:
+
+{'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'}
+
+
+
+

@@ -5,9 +5,10 @@
         <meta charset="utf-8">
         <title>List of species</title>
       </head>
-      <h1>Limit: {{context.limit}}</h1>
-      <h1>Total number of available species: {{context.len_species}}</h1>
-        <h1>List of species:</h1>
+      <body style="background-color: palegreen;">
+      <p>The total number of species available in Ensembl is: {{context.len_species}}</p>
+      <p>The limit you have selected is: {{context.limit}}</p>
+      <p>The list with the names of the species is the following:</p>
         <p>{{context.list_species}}</p>
         <a href="/">Main page</a>
       </body>

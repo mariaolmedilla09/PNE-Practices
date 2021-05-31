@@ -66,6 +66,7 @@ def karyotype_by_specie(argument, return_html):
     if return_html:
         return read_template_html_file("./html/karyotype.html").render(context=context)
     else:
+        print("The requested json is the following: ", context)
         return context
 
 def chromosome_length(species, length_name, return_html):
@@ -82,13 +83,15 @@ def chromosome_length(species, length_name, return_html):
         if return_html:
             return read_template_html_file("./html/chromosome_length.html").render(context=context)
         else:
+            print("The requested json is the following: ", context)
             return context
 
     else:
         if return_html:
             return read_template_html_file("./html/error.html").render()
         else:
-            return {'error' : ''}
+            print("{'Error' : ''}")
+            return {'Error' : ''}
 
 
 def get_gene_id_by_name(gene_name):
@@ -117,13 +120,68 @@ def gene_sequence(gene_name, return_html):
         if return_html:
             return read_template_html_file("./html/error.html").render()
         else:
-            return {'error': ''}
+            print("{'Error' : ''}")
+            return {'Error': ''}
 
     context['gene_name'] = gene_name
     context['sequence'] = r
     if return_html:
         return read_template_html_file("./html/gene_sequence.html").render(context=context)
     else:
+        print("The requested json is the following: ", context)
+        return context
+
+def gene_info(gene_name, return_html):
+    context = {}
+    try:
+        url_gene_info = 'http://rest.ensembl.org/sequence/id/{}?content-type=application/json'.\
+            format(get_gene_id_by_name(gene_name))
+        r = requests.get(url_gene_info).json()
+    except:
+        if return_html:
+            return read_template_html_file("./html/error.html").render()
+        else:
+            print("{'Error' : ''}")
+            return {'Error':''}
+    context['gene_name'] = gene_name
+    context['id'] = r['id']
+    sequence = r['seq']
+    len_sequence = len(sequence)
+    context['length'] = len_sequence
+    information = r['desc']
+    information_splitted = information.split(':')
+    context['name'] = information_splitted[1]
+    context['start'] = information_splitted[3]
+    context['end'] = information_splitted[4]
+    if return_html:
+        return read_template_html_file("./html/gene_info.html").render(context=context)
+    else:
+        print("The requested json is the following: ", context)
+        return context
+
+def gene_calc(gene_name, return_html):
+    context = {}
+    try:
+        url_gene_calc = 'https://rest.ensembl.org/sequence/id/{0}?content-type=text/plain'. \
+            format(get_gene_id_by_name(gene_name))
+        r = requests.get(url_gene_calc).text
+    except:
+        if return_html:
+            return read_template_html_file("./html/error.html").render()
+        else:
+            print("{'Error' : ''}")
+            return {'Error': ''}
+
+    context['gene_name'] = gene_name
+    sequence_gene = Seq(r)
+    len_sequence_gene = sequence_gene.len()
+    len_sequence_percentage = sequence_gene.percentage_base(sequence_gene.count_bases(),len_sequence_gene)
+    context['len_sequence_gene'] = len_sequence_gene
+    context['sequence_percentage_gene'] = len_sequence_percentage
+    if return_html:
+        return read_template_html_file("./html/gene_calc.html").render(context=context)
+    else:
+        print("The requested json is the following: ", context)
         return context
 
 
@@ -136,6 +194,7 @@ def list_species(argument, return_html):
         if return_html:
             return read_template_html_file("./html/error.html").render()
         else:
+            print("{'Error' : ''}")
             return {'error' : ''}
 
     limit_int = int(argument)
@@ -147,7 +206,7 @@ def list_species(argument, return_html):
     list_of_species = []
     if 'species' in r:
         len_list_of_species_tot = len(r['species'])
-        print(len_list_of_species_tot)
+        #print(len_list_of_species_tot)
         if limit_int > len_list_of_species_tot:
             if return_html:
                 return read_template_html_file("./html/error.html").render()
@@ -173,6 +232,7 @@ def list_species(argument, return_html):
 
     else:
         context["list_species"] = list_of_species
+        print("The requested json is the following: ", context)
         return context
 
 

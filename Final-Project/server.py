@@ -51,9 +51,31 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 if arguments['json'][0] == '1':
                     contents = su.gene_sequence(arguments['gene_name'][0], False)
                 else:
-                    contents = {'error': 'json argument must be 1 to return json output'}
+                    contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+
+        elif path_name == "/geneInfo":
+            if 'gene_name' in arguments and not 'json' in arguments:
+                contents = su.gene_info(arguments['gene_name'][0], True)
+            elif 'gene_name' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.gene_info(arguments['gene_name'][0], False)
+                else:
+                    contents = {'ERROR': "json argument must be 1 to return json output"}
+            else:
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+
+        elif path_name == "/geneCalc":
+            if 'gene_name' in arguments and not 'json' in arguments:
+                contents = su.gene_calc(arguments['gene_name'][0], True)
+            elif 'gene_name' in arguments and 'json' in arguments:
+                if arguments['json'][0] == '1':
+                    contents = su.gene_calc(arguments['gene_name'][0], False)
+                else:
+                    contents = {'ERROR': "json argument must be 1 to return json output"}
+            else:
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/listSpecies":
             if 'limit' in arguments and not 'json' in arguments:
@@ -62,9 +84,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 if arguments['json'][0] == '1':
                     contents = su.list_species(arguments['limit'][0], False)
                 else:
-                    contents = {'error': 'json argument must be 1 to return json output'}
+                    contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'}
 
         elif path_name == "/karyotype":
             if 'species' in arguments and not 'json' in arguments:
@@ -73,9 +95,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 if arguments['json'][0] == '1':
                     contents = su.karyotype_by_specie(arguments['species'][0], False)
                 else:
-                    contents = {'error': 'json argument must be 1 to return json output'}
+                    contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/chromosome_length":
             if 'species' in arguments and 'length' in arguments and not 'json' in arguments:
@@ -86,9 +108,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     contents = su.chromosome_length(arguments['species'][0],
                                                   arguments['length'][0], False)
                 else:
-                    contents = {'error': 'json argument must be 1 to return json output'}
+                    contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'error': 'endpoint arguments are not correct for this endpoint'}
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         else:
             contents = su.read_template_html_file("./html/error.html").render()
