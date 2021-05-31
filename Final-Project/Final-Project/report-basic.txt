@@ -4,6 +4,7 @@ Test report BASIC LEVEL
 ---> listSpecies endpoint
 
 * TEST 1: When it works perfectly with an introduced limit:
+  --------------------------------------------------------
 
 * Input:
 
@@ -27,6 +28,7 @@ http:// localhost:8080/listSpecies?limit=10
     </html>
 
  * TEST 2: When a limit is not introduced:
+   --------------------------------------
 
  * Input:
 
@@ -35,6 +37,34 @@ http:// localhost:8080/listSpecies?limit=10
  * Output:
 
 {'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'}
+
+* TEST 3: When you introduce limit 0:
+  ----------------------------------
+
+ * Input:
+
+ http:// localhost:8080/listSpecies?limit=0
+
+ * Output:
+
+ <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>List of species</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>The total number of species available in Ensembl is: 310</p>
+      <p>The limit you have selected is: 0</p>
+      <p>The list with the names of the species is the following: </p>
+     <p> -little spotted kiwi<br /> -Indian glassy fish<br /> -blue tit<br /> -narwhal<br /> -American beaver<br /> -lumpfish<br /> -Chinese hamster<br /> -channel bull blenny<br /> -Golden Hamster<br /> -wild yak<br /> -Siamese fighting fish<br /> -eastern happy<br /> -cape rock hyrax<br /> -Eurasian eagle-owl<br /> -Japanese quail<br /> -fugu<br /> -Asian bonytongue<br /> -blue-ringed sea krait<br /> -mouse<br /> -Agassiz's desert tortoise<br /> -lyretail cichlid<br /> -coho salmon<br /> -Oriental scops-owl<br /> -zebra mbuna<br /> -Arctic ground squirrel<br /> -clown anemonefish<br /> -koala<br /> -algerian mouse<br /> -sheep<br /> -mouse<br /> -dog<br /> -Spoon-billed sandpiper<br /> -Northern American deer mouse<br /> -burrowing owl<br /> -baker's yeast<br /> -Spotted gar<br /> -steppe mouse<br /> -Canada lynx<br /> -Polar bear<br /> -Amazon molly<br /> -tongue sole<br /> -platypus<br /> -Common snapping turtle<br /> -Western painted turtle<br /> -gray short-tailed opossum<br /> -Golden snub-nosed monkey<br /> -helmeted guineafowl<br /> -golden-line barbel<br /> -Sea squirt Ciona savignyi<br /> -Western Lowland Gorilla<br /> -northern pike<br /> -swamp eel<br /> -Indian peafowl<br /> -barramundi perch<br /> -meerkat<br /> -Chinese medaka<br /> -pig<br /> -Makobe Island cichlid<br /> -reedfish<br /> -Ryukyu mouse<br /> -red fox<br /> -tammar wallaby<br /> -central bearded dragon<br /> -vaquita<br /> -White-headed capuchin<br /> -alpaca<br /> -small Madagascar hedgehog<br /> -Angola colobus<br /> -Pig-tailed macaque<br /> -cattle<br /> -orbiculate cardinalfish<br /> -Eastern spot-billed duck<br /> -common carp hebao red<br /> -yellowtail amberjack<br /> -Brazilian guinea pig<br /> -Mexican tetra<br /> -ruff<br /> -domestic yak<br /> -zebra finch<br /> -Black snub-nosed monkey<br /> -Bengalese finch<br /> -Damara mole rat<br /> -Japanese medaka HdrR<br /> -Budgie<br /> -Philippine tarsier<br /> -Chacoan peccary<br /> -southern platyfish<br /> -common mallard<br /> -Swainson's thrush<br /> -elephant shark<br /> -turquoise killifish<br /> -pig<br /> -Ugandan red Colobus<br /> -pig<br /> -lion<br /> -Lesser Egyptian jerboa<br /> -three-spined stickleback<br /> -domestic guinea pig<br /> -dingo<br /> -Daurian ground squirrel<br /> -dog<br /> -Three-toed box turtle<br /> -Tasmanian devil<br /> -Siberian musk deer<br /> -pig<br /> -mouse<br /> -Indian medaka<br /> -mouse<br /> -domestic cat<br /> -Chinese hamster<br /> -Norway rat<br /> -Alpine marmot<br /> -Goat<br /> -medium ground-finch<br /> -Shrew mouse<br /> -large flying fox<br /> -Bornean orangutan<br /> -Atlantic salmon<br /> -Sooty mangabey<br /> -chicken<br /> -green anole<br /> -Argentine black and white tegu<br /> -Degu<br /> -Indian cobra<br /> -Drill<br /> -C.elegans<br /> -white-tufted-ear marmoset<br /> -Goodes thornscrub tortoise<br /> -rufous-capped babbler<br /> -pink-footed goose<br /> -pig<br /> -Upper Galilee mountains blind mole rat<br /> -bicolor damselfish<br /> -live sharksucker<br /> -Coquerel's sifaka<br /> -bottlenosed dolphin<br /> -mouse<br /> -northern tree shrew<br /> -Atlantic herring<br /> -greater horseshoe bat<br /> -Gouldian finch<br /> -Sea squirt Ciona intestinalis<br /> -blue tilapia<br /> -tropical clawed frog<br /> -california sea lion<br /> -dog<br /> -muscovy Duck (domestic type)<br /> -mouse<br /> -goat<br /> -human<br /> -Great spotted kiwi<br /> -ocean sunfish<br /> -Bolivian squirrel monkey<br /> -Chinook salmon<br /> -zig-zag eel<br /> -naked mole-rat<br /> -turkey<br /> -nine-banded armadillo<br /> -Paramormyrops kingsleyae<br /> -guppy<br /> -sea lamprey<br /> -hybrid cattle<br /> -Hoffmann's two-fingered sloth<br /> -huchen<br /> -rainbow trout<br /> -large yellow croaker<br /> -Asiatic black bear<br /> -pig<br /> -blue-crowned manakin<br /> -javanese ricefish<br /> -swan goose<br /> -blunt-snouted clingfish<br /> -African ostrich<br /> -common carp<br /> -turbot<br /> -western European hedgehog<br /> -Olive baboon<br /> -western mosquitofish<br /> -Long-tailed chinchilla<br /> -Inshore hagfish<br /> -Macaque<br /> -vole<br /> -Atlantic cod<br /> -little brown bat<br /> -pike-perch<br /> -Midas cichlid<br /> -gray mouse lemur<br /> -beluga whale<br /> -mouse<br /> -dark-eyed junco<br /> -Domestic ferret<br /> -blind barbel<br /> -emu<br /> -Collared flycatcher<br /> -Ma's night monkey<br /> -mallard<br /> -silver-eye<br /> -eastern brown snake<br /> -Tiger<br /> -pig<br /> -common canary<br /> -tiger tail seahorse<br /> -mouse<br /> -greater bamboo lemur<br /> -West African mud turtle<br /> -Japanese medaka HSOK<br /> -brown trout<br /> -tuatara<br /> -pig<br /> -European shrew<br /> -sperm whale<br /> -European seabass<br /> -pinecone soldierfish<br /> -pig<br /> -American black bear<br /> -sheepshead minnow<br /> -Great Tit<br /> -thirteen-lined ground squirrel<br /> -sailfin molly<br /> -mouse<br /> -common wombat<br /> -mouse<br /> -Eurasian sparrowhawk<br /> -mouse<br /> -horned golden-line barbel<br /> -Mongolian gerbil<br /> -naked mole-rat<br /> -jewelled blenny<br /> -New Caledonian crow<br /> -American mink<br /> -eastern buzzard<br /> -Australian saltwater crocodile<br /> -chimpanzee<br /> -horse<br /> -common wall lizard<br /> -Kakapo<br /> -Abingdon island giant tortoise<br /> -pig<br /> -golden pheasant<br /> -hybrid cattle<br /> -mouse<br /> -Chinese softshell turtle<br /> -gilthead seabream<br /> -Okarito brown kiwi<br /> -mangrove rivulus<br /> -gelada<br /> -Leishan spiny toad<br /> -Ord's kangaroo rat<br /> -superb fairywren<br /> -Pachon cavefish<br /> -mouse<br /> -white-throated sparrow<br /> -common carp huanghe<br /> -donkey<br /> -golden eagle<br /> -red-bellied piranha<br /> -African savanna elephant<br /> -pig<br /> -giant panda<br /> -ballan wrasse<br /> -Eurasian red squirrel<br /> -Arabian camel<br /> -bonobo<br /> -Ring-necked pheasant<br /> -small-eared galago<br /> -Nile tilapia<br /> -common carp german mirror<br /> -orange clownfish<br /> -common kestrel<br /> -pig<br /> -coelacanth<br /> -goldfish<br /> -Periophthalmus magnuspinnatus<br /> -northern spotted owl<br /> -shortfin molly<br /> -Crab-eating macaque<br /> -American bison<br /> -Yarkand deer<br /> -electric eel<br /> -climbing perch<br /> -rabbit<br /> -mouse<br /> -Northern white-cheeked gibbon<br /> -Monterrey platyfish<br /> -mouse<br /> -round goby<br /> -yellow-billed parrot<br /> -mainland tiger snake<br /> -Chinese hamster<br /> -American pika<br /> -mouse<br /> -channel catfish<br /> -Japanese medaka HNI<br /> -zebrafis<br /> -small tree finch<br /> -golden-collared manakin<br /> -fruit fly<br /> -Chilean tinamou<br /> -Blue whale<br /> -spiny chromis<br /> -African green monkey<br /> -Burton's mouthbrooder<br /> -denticle herring<br /> -leopard<br /> -spotted green pufferfish<br /> -sheep<br /> -mummichog<br /> -pig<br /> -Komodo dragon<br /> -greater amberjack</p>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+ * TEST 4: When you introduce limit 0:
+  ----------------------------------
+
 
 
 
