@@ -1,16 +1,18 @@
 Test report BASIC LEVEL
 ------------------------
 
+
+
 ---> listSpecies endpoint
 
 * TEST 1: When it works perfectly with an introduced limit:
   --------------------------------------------------------
 
-* Input:
+  * Input:
 
 http:// localhost:8080/listSpecies?limit=10
 
-* Output:
+  * Output:
 
 <!DOCTYPE html>
     <html lang="en" dir="ltr">
@@ -30,22 +32,22 @@ http:// localhost:8080/listSpecies?limit=10
  * TEST 2: When a limit is not introduced:
    --------------------------------------
 
- * Input:
+   * Input:
 
  http:// localhost:8080/listSpecies?limit=
 
- * Output:
+   * Output:
 
 {'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'}
 
 * TEST 3: When you introduce limit 0:
   ----------------------------------
 
- * Input:
+   * Input:
 
  http:// localhost:8080/listSpecies?limit=0
 
- * Output:
+   * Output:
 
  <!DOCTYPE html>
     <html lang="en" dir="ltr">
@@ -62,8 +64,278 @@ http:// localhost:8080/listSpecies?limit=10
       </body>
     </html>
 
- * TEST 4: When you introduce limit 0:
-  ----------------------------------
+* TEST 4: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+  * Input:
+
+ http:// localhost:8080/listSpecies?lemit=3
+
+  * Output:
+
+ {"ERROR": "endpoint arguments are not correct for this endpoint (Check you introduced a limit also!"}
+
+
+
+
+---> karyotype endpoint
+
+* TEST 1: When it works perfectly with an introduced species:
+  ----------------------------------------------------------
+
+  * Input:
+
+ http:// localhost:8080/karyotype?species=mouse
+
+  * Output:
+
+ <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>karyotype by species</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>Selected species: mouse</p>
+      <p>Information requested: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', 'X', 'Y', 'MT']</p>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 2: When the introduced species does not exist/ its karyotype is not registered in Ensembl:
+  ----------------------------------------------------------------------------------------------
+
+  * Input:
+
+ http:// localhost:8080/karyotype?species=hello
+
+  * Output:
+
+  <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>karyotype by species</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>Selected species: hello</p>
+      <p>Information requested:  karyotype not available for that species </p>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 3: When no species is introduced:
+  -------------------------------------
+
+   * Input:
+
+ http:// localhost:8080/karyotype?species=
+
+   * Output:
+
+ {"ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"}
+
+* TEST 4: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+   * Input:
+
+ http:// localhost:8080/karyotype?speces=mouse
+
+   * Output:
+
+ {"ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"}
+
+
+
+
+---> chromosomeLength endpoint
+
+* TEST 1: When it works perfectly with introduced both species and chromosome:
+  ---------------------------------------------------------------------------
+
+   * Input:
+
+ http://localhost:8080/chromosome_length?species=mouse&length=18
+
+   * Output:
+
+   <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Chromosome length</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>Species chosen: mouse</p>
+      <p>The length of the chromosome is: 90720763</p>
+      <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 2: When you provide it a species but not the number of the chromosome:
+  --------------------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/chromosome_length?species=mouse&length=
+
+  * Output:
+
+ {"ERROR": "You missed the number of chromosome you want to check"}
+
+* TEST 3: When you provide it the name of the chromosome but not the name of the species you wanna check:
+  ------------------------------------------------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/chromosome_length?species=&length=18
+
+  * Output:
+
+ {"ERROR": "You missed the name of the species you want to check"}
+
+* TEST 4: When you do not provide any species nor chromosome name:
+  ---------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/chromosome_length?species=&length=
+
+  * Output:
+
+ {"ERROR": "You missed the name of the species and the name of the chromosome you want to check"}
+
+* TEST 5: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+   * Input:
+
+ http:// localhost:8080/chromosome_length?species=mouse&lenght=18
+
+   * Output:
+
+ {"ERROR": "You missed the number of chromosome you want to check"} ---> This happens because it stops in the error in which no chromosome is provided, as it does not detect any 'length' provided.
+
+ The same happens in case we write the word 'species' wrong:
+
+ {"ERROR": "You missed the name of the species you want to check"} ---> For the same reason as before.
+
+
+
+
+---> No endpoint provided:
+
+ In the case you do not provide an endpoint, you are directly sent to the main page (index). Then:
+
+  * Input:
+
+ http:// localhost:8080/
+
+ * Output:
+
+ <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome!</title>
+  </head>
+  <body style="background-color: powderblue;">
+  <body>
+    <h1>Browsing Human and Vertebrates genome</h1>
+    <h1>BASIC Level Services</h1>
+
+    <p>1) List of species in the genome database</p>
+
+    <form action="listSpecies" method="get">
+        Limit: <input type="text" name="limit">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+    <p>2) Information about the karyotype: </p>
+    <form action="karyotype" method="get">
+        Select the species: <input type="text" name="species">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+    <p>3) Chromosome Length</p>
+    <form action="chromosome_length" method="get">
+        Select the species: <input type="text" name="species">
+
+        <br><br>
+        Select a chromosome: <input type="text" name="length">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+    <h1>MEDIUM Level Services</h1>
+
+    <p>4) Gene sequence</p>
+    <form action="geneSeq" method="get">
+        Select a human gene: <input type="text" name="gene_name">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+    <p>5) Information about a Human gene</p>
+    <form action="geneInfo" method="get">
+        Select a human gene: <input type="text" name="gene_name">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+    <p>6) Calculations about a Human gene</p>
+    <form action="geneCalc" method="get">
+        Select a human gene: <input type="text" name="gene_name">
+
+        <br><br>
+        <input type="submit" value="Send">
+    </form>
+
+    <hr>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

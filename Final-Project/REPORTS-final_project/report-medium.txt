@@ -1,0 +1,160 @@
+Test report MEDIUM LEVEL
+------------------------
+
+
+MEDIUM LEVEL ENDPOINTS:
+
+---> geneSeq endpoint
+
+* TEST 1: When it works perfectly with an introduced human gene:
+  -------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneSeq?gene_name=FRAT1
+
+  * Output:
+
+ <!DOCTYPE html>
+     <html lang="en" dir="ltr">
+       <head>
+         <meta charset="utf-8">
+         <title>gene sequence</title>
+       </head>
+       <body style="background-color: palegreen;">
+       <p>Gene name: FRAT1</p>
+       <p>Gene sequence:</p>
+       <p>CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTCAGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAGAGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGCGAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTCCCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCTACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCGTGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGTGCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAACCCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCACAGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAAAATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGACTCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCCGGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACTTAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCTCTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTAAAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTGTTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTCCGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGAGACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCCCTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGCTTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACCGGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAAAAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC</p>
+         <a href="/">Main page</a>
+       </body>
+     </html>
+
+* TEST 2: When no gene is introduced:
+  --------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneSeq?gene_name=
+
+  * Output:
+
+ {"ERROR": "You must introduce a gene name"}
+
+* TEST 3: When the gene introduced isn't available in the dictionary of genes we are using:
+  ----------------------------------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneSeq?gene_name=HELLO
+
+  * Output:
+
+  <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>gene sequence</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>Gene name: HELLO</p>
+      <p>Gene sequence:</p>
+      <p>{"error":"ID 'NONE' not found"}</p>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 4: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneSeq?genename=HELLO
+
+  * Output:
+
+ {"ERROR": "You must introduce a gene name"}  ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
+
+
+
+ ---> geneInfo endpoint
+
+* TEST 1: When it works perfectly with an introduced human gene:
+  -------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneInfo?gene_name=FRAT1
+
+ * Output:
+
+ <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Gene info</title>
+      </head>
+      <body style="background-color: palegreen;">
+      <p>Gene name: FRAT1</p>
+      <p>Human gene id: ENSG00000165879</p>
+      <p>Length human gene: 2645</p>
+      <p>Gene start: 97319271</p>
+      <p>Gene end: 97321915 </p>
+      <p>Chromosome name: GRCh38</p>
+      <br>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 2: When no human gene is introduced:
+  ----------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneInfo?gene_name=
+
+  * Output:
+
+ {"ERROR": "You must introduce a gene name"}
+
+* TEST 3: When the gene introduced isn't available in the dictionary of genes we are using:
+  ----------------------------------------------------------------------------------------
+
+  * Input:
+
+ http://localhost:8080/geneInfo?gene_name=HELLO
+
+ * Output:
+
+ <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Green server</title>
+      </head>
+      <body style="background-color: red;">
+        <h1>ERROR</h1>
+        <P>Resource not available</P>
+        <a href="/">Main page</a>
+      </body>
+    </html>
+
+* TEST 4: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
+  ------------------------------------------------------------------------------------------------------------------------------------------
+
+  * Input:
+
+
+  * Output:
+
+ {"ERROR": "You must introduce a gene name"}  ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
+
+
+
+
+
+
+
+
+
+
+
