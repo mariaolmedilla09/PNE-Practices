@@ -37,7 +37,7 @@ while True:
     if len(formatted_message) == 1:
         command = formatted_message[0]
     else:
-        command= formatted_message[0]
+        command = formatted_message[0]
         argument = formatted_message[1]
 
     if command == "PING":

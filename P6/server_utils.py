@@ -4,26 +4,26 @@ import pathlib
 from urllib.parse import urlparse, parse_qs
 GENE_FOLDER = "./Sequences/"
 
-def print_colored(message, color):pass
-    #import termcolor
-    #import colorama
-    #colorama.init(string="False")
-    #print(termcolor.colored(message, color))
+def print_colored(message, color):
+    import termcolor
+    import colorama
+    colorama.init(strip="False")
+    print(termcolor.colored(message, color))
 
 def format_command(command): #used not to get PING\r\n
-    return command.replace("\n","").replace("\n","")
+    return command.replace("\n","").replace("\r","")
 
 def read_template_html_file(filename):
     content = jinja2.Template(pathlib.Path(filename).read_text())
     return content
 
 def ping(cs):
-    #print_colored("PING command!", "green")
-    response = "OK!\n"
+    print_colored("PING command!", "green")
+    response = "OK!"
     cs.send(response.encode())
 
-def get(cs, list_sequences, argument):
-    cs.send(get(list_sequences, argument).encode())
+#def get(cs, list_sequences, argument):
+    #cs.send(get(list_sequences, argument).encode())
 
 def get(list_sequences, argument):
     sequence = list_sequences[int(argument)]
@@ -37,8 +37,7 @@ def get(list_sequences, argument):
 
 
 def info(argument):
-    #print_colored("INFO", "yellow)
-    print("INFO")
+    print_colored("INFO", "yellow")
     sequence = Seq(argument)
     total_length = str(sequence.len())
     response_2 = total_length
@@ -54,8 +53,7 @@ def info(argument):
     return contents
 
 def comp(argument):
-    #print_colored("COMP", "yellow")
-    print("COMP")
+    print_colored("COMP", "yellow")
     sequence = Seq(argument)
     response = sequence.complement()
     context = {"sequence": argument, "comp_sequence": response}
@@ -63,8 +61,7 @@ def comp(argument):
     return contents
 
 def rev(argument):
-    #print_colored("REV", "yellow")
-    print("REV")
+    print_colored("REV", "yellow")
     sequence = Seq(argument)
     response = sequence.reverse()
     context = {"sequence": argument, "rev_sequence": response}
@@ -72,13 +69,13 @@ def rev(argument):
     return contents
 
 def gene(seq_name):
-    GENE_FOLDER = "./Sequences/"
-    argument = GENE_FOLDER + seq_name + ".txt"
+    print_colored("GENE", "yellow")
+    PATH = GENE_FOLDER + seq_name + ".txt"
     gene = Seq()
-    gene.read_fasta(argument)
+    gene.read_fasta(PATH)
     context ={
         "gene_name": seq_name,
-        "gene_contents": gene.str_bases
+        "gene_contents": gene.strbases
     }
     contents = read_template_html_file("./html/gene.html").render(context=context)
     return contents

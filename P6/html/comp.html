@@ -5,10 +5,7 @@
         <title>Seq server</title>
       </head>
         <h1>SEQUENCE {{context.sequence}}</h1>
-
-        {% for n in context.info_sequence %}
-            <P>{{n}}</P>
-        {% endfor %}
+        <P>{{context.comp_sequence}}</P>
         <a href="/">Main page</a>
       </body>
     </html>

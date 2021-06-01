@@ -1,4 +1,4 @@
-# For having a dinamic page:
+
 
 import http.server
 import socketserver
