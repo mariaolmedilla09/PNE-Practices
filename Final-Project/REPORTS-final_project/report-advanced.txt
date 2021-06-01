@@ -1,5 +1,5 @@
-Test report MEDIUM LEVEL
-------------------------
+Test report ADVANCED LEVEL
+--------------------------
 
 BASIC LEVEL ENDPOINTS:
 
@@ -217,8 +217,8 @@ http:// localhost:8080/listSpecies?limit=10
 
   * Output:
 
- {
-     "ERROR": "You missed the name of the species and the name of the chromosome you want to check"
+ {"
+     ERROR": "You missed the name of the species and the name of the chromosome you want to check"
  }
 
 * TEST 5: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
@@ -232,13 +232,13 @@ http:// localhost:8080/listSpecies?limit=10
 
  {
      "ERROR": "You missed the number of chromosome you want to check"
- }        ---> This happens because it stops in the error in which no chromosome is provided, as it does not detect any 'length' provided.
+ }     ---> This happens because it stops in the error in which no chromosome is provided, as it does not detect any 'length' provided.
 
  The same happens in case we write the word 'species' wrong:
 
  {
      "ERROR": "You missed the name of the species you want to check"
- }        ---> For the same reason as before.
+ }     ---> For the same reason as before.
 
 
 
@@ -402,7 +402,7 @@ MEDIUM LEVEL ENDPOINTS:
 
  {
      "ERROR": "You must introduce a gene name"
- }       ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
+ }      ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
 
 
 
@@ -481,7 +481,7 @@ MEDIUM LEVEL ENDPOINTS:
 
  {
      "ERROR": "You must introduce a gene name"
- }       ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
+ }      ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
 
 
 
@@ -559,9 +559,451 @@ MEDIUM LEVEL ENDPOINTS:
  }      ---> The same as before happens because it does not detect any 'gene_name' provided and it does not reach the error for the case of wrong characters, ...
 
 
+ADVANCED LEVEL IMPLEMENTATIONS:
+
+ In this level, I have implemented my program so that you can obtain the json when writing json=1 in several options:
+
+ 1) Requesting it in the browser adding 'json=1' in the parameters:
+    This way the json is obtained in the browser, but it is also printed in the terminal.
+ 2) Using the 'client.py' created:
+    This way the json dictionaries are obtained in the terminal.
+
+    TEST OF ALL THE ENDPOINTS WHEN WORKING PROPERLY:
+                              ---------------------
+
+ * TEST OF THE 1st ENDPOINT (listSpecies) when working properly:
+
+ 1)   INPUT: http://localhost:8080/listSpecies?limit=10&json=1
+      OUTPUT IN BROWSER:
+ {
+    "limit": "10",
+    "len_species": 310,
+    "list_species": [
+        "little spotted kiwi",
+        "Indian glassy fish",
+        "blue tit",
+        "narwhal",
+        "American beaver",
+        "lumpfish",
+        "Chinese hamster",
+        "channel bull blenny",
+        "Golden Hamster",
+        "wild yak"
+    ]
+ }
+      OUTPUT IN TERMINAL: The requested json is the following: {"limit": "10", "len_species": 310, "list_species": ["little spotted kiwi", "Indian glassy fish", "blue tit", "narwhal", "American beaver", "lumpfish", "Chinese hamster", "channel bull blenny", "Golden Hamster", "wild yak"]}
+
+ 2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /listSpecies
+ Response received!:  200 OK
+ {
+     "len_species": 310,
+     "limit": "10",
+     "list_species": [
+         "little spotted kiwi",
+         "Indian glassy fish",
+         "blue tit",
+         "narwhal",
+         "American beaver",
+         "lumpfish",
+         "Chinese hamster",
+         "channel bull blenny",
+         "Golden Hamster",
+         "wild yak"
+     ]
+ }
 
 
 
+ * TEST OF THE 2nd ENDPOINT (karyotype) when working properly:
 
+ 1)   INPUT: http://localhost:8080/karyotype?species=mouse&json=1
+      OUTPUT IN BROWSER:
+      {
+          "karyotype": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "X",
+              "Y",
+              "MT"
+          ],
+          "species": "mouse"
+      }
+
+      OUTPUT IN TERMINAL: The requested json is the following: (identical json to the previous one but printed in terminal).
+
+2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /karyotype
+ Response received!:  200 OK
+ {
+     "karyotype": [
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7",
+         "8",
+         "9",
+         "10",
+         "11",
+         "12",
+         "13",
+         "14",
+         "15",
+         "16",
+         "17",
+         "18",
+         "19",
+         "X",
+         "Y",
+         "MT"
+     ],
+     "species": "mouse"
+ }
+
+
+
+ * TEST OF THE 3rd ENDPOINT (chromosome_length) when working properly:
+
+ 1)   INPUT: http://localhost:8080/chromosome_length?species=mouse&length=18&json=1
+      OUTPUT IN BROWSER:
+ {
+      "length_chromosome": 90720763,
+      "species": "mouse"
+ }
+
+      OUTPUT IN TERMINAL: The requested json is the following: (identical json to the previous one but printed in terminal).
+
+
+ 2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /chromosome_length
+ Response received!:  200 OK
+ {
+     "length_chromosome": 90720763,
+     "species": "mouse"
+ }
+
+
+
+* TEST OF THE 4th ENDPOINT (geneSeq) when working properly:
+ 1)   INPUT: http://localhost:8080/geneSeq?gene_name=FRAT1&json=1
+      OUTPUT IN BROWSER:
+
+ {
+    "gene_name": "FRAT1",
+    "sequence": "CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTCAGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAGAGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGCGAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTCCCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCTACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCGTGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGTGCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAACCCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCACAGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAAAATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGACTCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCCGGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACTTAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCTCTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTAAAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTGTTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTCCGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGAGACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCCCTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGCTTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACCGGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAAAAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC"
+ }
+
+      OUTPUT IN TERMINAL: The requested json is the following: (identical json to the previous one but printed in terminal).
+
+ 2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /geneSeq
+ Response received!:  200 OK
+ {
+     "gene_name": "FRAT1",
+     "sequence": "CGGCTCCCGCGGCTGCAGGCGCGCGGCTAGAGTGCCTGGCGGGCTCCGGCTTCCGCGTCCGCCCCGGCCCCGGTCCAGACTTAGTCTTCAGCTCCGCGCCCGCTCCGCCGCGGCCCACCGCGCCCGCCGGCAGCCGAGCCCCCAGCGACGCCCGCACAGCTCCGGGTGCCCAGACAGGGGGCCATGCCGTGCCGGAGGGAGGAGGAAGAGGAAGCCGGCGAGGAGGCGGAGGGGGAGGAAGAGGAGGAGGACAGCTTCCTCCTACTGCAGCAGTCAGTGGCGCTGGGCAGCTCGGGCGAGGTGGACCGGCTGGTGGCCCAGATCGGCGAGACGCTGCAGCTGGACGCGGCGCAGCACAGCCCGGCCTCGCCGTGCGGGCCCCCGGGGGCGCCGCTGCGGGCCCCGGGGCCCCTGGCTGCGGCGGTGCCGGCGGACAAGGCCAGGTCCCCGGCGGTGCCGCTGCTGCTGCCGCCCGCGTTGGCGGAGACTGTGGGCCCGGCGCCCCCTGGGGTCCTGCGCTGCGCCCTGGGGGACCGCGGCCGCGTGCGGGGCCGCGCTGCGCCCTACTGCGTGGCCGAGCTCGCCACAGGCCCCAGCGCGCTGTCCCCACTGCCCCCTCAGGCCGACCTTGATGGGCCTCCGGGAGCTGGCAAGCAGGGCATCCCGCAGCCGCTGTCGGGTCCGTGCCGGCGAGGATGGCTCCGGGGCGCCGCCGCCTCCCGCCGCCTGCAGCAGCGACGCGGGTCCCAACCAGAAACCCGCACAGGCGACGACGACCCGCACCGGCTTCTGCAGCAGCTAGTGCTCTCTGGAAACCTCATCAAGGAGGCCGTGCGAAGGCTTCATTCGCGACGGCTGCAGTTACGTGCAAAGCTTCCCCAACGCCCGCTCCTGGGACCTCTGTCGGCCCCGGTGCATGAACCCCCTTCGCCTCGCAGCCCTCGCGCGGCCTGCAGTGACCCTGGCGCCTCCGGGAGGGCGCAGCTCAGAACTGGCGACGGCGTTCTTGTGCCTGGCAGCTAACACGCCCGGGGTGGCCACAGCGCCAGCCTCAGACTGGAGGGCAAGGGGTTCCCTTGAGGGCTGCAGTTCTACTCAGGCTGGTGGAGAACTCTGGCTTTTGGAAGCGAGAGTAAAAAGCTAATGACGAGGAACCGAAAAATCGCGAGTGTTTCGCGGGTAACTGGGGTTGAGGGCCAAAATATTTGGAATGAAGGACTTTGGCCCTATTTAAGGCAGATTTTACAGAGCGCACCTCAAACGTACAAGTCAGTAGGACTCCTTATTTGGCGTGACCCGACCTGGCCGCGGAGCCTGCATTTCCTCGCAGCCTCTCAGTGCCCTCCAGCCCCGCGACCATGTGGCCACAATCCACGCTTCTCCGGATCGCGGTGCGCCGGAACCACGGAGGATGATGCCAGTTACTTGCTTTACCTTTTCAGGGCTGGCTCCTGATCCACTTTGGGGGAGGAGAACATGAGTAGATAATTTCAGGGTGCAGCCCAATCTGCCAGACTTAAAAAAACCATCTTGTGTCTTTGGAGGTGCTGCTTAATACCAAACATGCGGTGCCATGAAGGGACCCTTTGGGGGTTGAATAGGAGTTAACCCCTGCGCTCTCTTTGCAACTGTCTCTCTTCTCAGAGTGGTGGGGGAAGGCTGTACGACACGGGTGGGGAAAGGAGGTGGGGGCGGGGAGTATTGAATGGTGGTGGAAGGGTAGAGAGGCGCGGAGTGAACCCCACGCCCTGTCTAAAGTGTATTTTCAGAGCCGGCCCGCCTCTCCTCGGTTCAAGGTCACTGTTTCCTGGGCACGCACTGGGTTGCGGGACAGAGTAGCCAGGTTCTGCCGGTGCTCGGAGAAGAGCGCAGTGTTTTGCAAGTGCTGGAGTCTCCTGAGGACACGCGCGTCGCCGCCACCGCGGGTGTGGGAAAGCGCGGACGTGCTGGGCGGCTGTGCTTCGGTAGGCGACCACCGCCCCTGGCCGCGCTCCGGGCTTTCACGGAAACTCCCGAGACCGGGCCCTGGGTTCCTCCTCTCCTACTCGGCTCTGCAGTCCTACTCAAGCGGGTGGCTCTGGGATCCTGGGGGCCTGGGTTGGGGGCTAGGGAGACGCCATGTGATGGACACTCCAGGGACACACAGCCTAGCACAGCAGCTTATAATGGGCTCTCCGGGGCCATTTGCAATAACAGCTGCAATTCCCTGGATAGACGAGTTGATTTCCTCCCTCTGCCCCTCCCCCAGCCATGCCAGCTGGCCTTTGTAAGTGCAGGAAACCGAGTAGAAAATGTGACCCTCCAAATGGAGAAGCTGCAGGCTTTGCCATTGTGAACCATGGTGAAGTGCTTGGAACATACTGTTCACTCACTCTAAAGGCGCTGAGACTGTGCTGTTGTTCTCGTTTTTATAGTCAATGGCTTGTTCATCATCCAGATGTGGCTACTGACATATCTACACTTCGCACCGGAGTGTCTGGAATTGTGGCTATCCTGATTATAGGATTTTAACTTAACTGAAATGCCTGCTTTGAATAAATGTGTTGGGTTTTTTGTTTGGTTTTATTTTATACTTGCCATCAGTGAAAAAGATGTACAGAACACATTTCTCTGATCTCCATAAACATGAAAACACTTGAAATCTC"
+ }
+
+
+
+* TEST OF THE 5th ENDPOINT (geneInfo) when working properly:
+ 1)   INPUT: http://localhost:8080/geneInfo?gene_name=FRAT1&json=1
+      OUTPUT IN BROWSER:
+ {
+    "gene_name": "FRAT1",
+    "id": "ENSG00000165879",
+    "length": 2645,
+    "name": "GRCh38",
+    "start": "97319271",
+    "end": "97321915"
+ }
+      OUTPUT IN TERMINAL: The requested json is the following: (identical json to the previous one but printed in terminal).
+
+ 2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /geneInfo
+ Response received!:  200 OK
+ {
+     "end": "97321915",
+     "gene_name": "FRAT1",
+     "id": "ENSG00000165879",
+     "length": 2645,
+     "name": "GRCh38",
+     "start": "97319271"
+ }
+
+
+
+* TEST OF THE 6th ENDPOINT (geneCalc) when working properly:
+ 1)   INPUT: http://localhost:8080/geneCalc?gene_name=FRAT1&json=1
+      OUTPUT IN BROWSER:
+
+ {
+    "gene_name": "FRAT1",
+    "len_sequence_gene": 2645,
+    "sequence_percentage_gene": {
+        "A": "18.03%",
+        "C": "30.21%",
+        "G": "32.1%",
+        "T": "19.66%"
+    }
+ }
+
+     OUTPUT IN TERMINAL: The requested json is the following: (identical json to the previous one but printed in terminal).
+
+ 2)   We run the client.
+      OUTPUT IN TERMINAL:
+
+ /geneCalc
+ Response received!:  200 OK
+ {
+    "gene_name": "FRAT1",
+    "len_sequence_gene": 2645,
+    "sequence_percentage_gene": {
+        "A": "18.03%",
+        "C": "30.21%",
+        "G": "32.1%",
+        "T": "19.66%"
+    }
+ }
+
+   TEST OF ALL THE ENDPOINTS WHEN LAUNCHING EXCEPTIONS:
+                             -------------------------
+ * TEST OF THE 1st ENDPOINT (listSpecies) when we get any EXCEPTION:
+
+ A) When we do not write any limit:
+
+ INPUT: http://localhost:8080/listSpecies?limit=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint (Check you introduced a limit also!"
+ }
+
+ B) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/listSpecies?limit=10&json=5
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ C) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/listSpecies?limhit=10&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint (Check you introduced a limit also!"
+ }
+
+
+
+* TEST OF THE 2nd ENDPOINT (karyotype) when we get any EXCEPTION:
+
+ A) When we do not write any species:
+
+ INPUT: http://localhost:8080/karyotype?species=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"
+ }
+
+ B) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/karyotype?species=mouse&json=6
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ C) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/karyotype?speces=mouse&json=6
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"
+ }
+
+* TEST OF THE 3rd ENDPOINT (chromosome_length) when we get any EXCEPTION:
+
+ A) When we do not write any species:
+
+ INPUT: http://localhost:8080/chromosome_length?species=&length=18&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+ B) When we do not write any chromosome:
+
+ INPUT: http://localhost:8080/chromosome_length?species=mouse&length=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+ C) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/chromosome_length?species=mouse&length=18&json=7
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ D) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/chromosome_length?species=mouse&lenghh=18&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+
+* TEST OF THE 4th ENDPOINT (geneSeq) when we get any EXCEPTION:
+
+A) When we do not write any gene:
+
+ INPUT: http://localhost:8080/geneSeq?gene_name=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+ B) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/geneSeq?gene_name=FRAT1&json=4
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ C) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/geneSeq?geneame=FRAT1&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+
+
+* TEST OF THE 5th ENDPOINT (geneInfo) when we get any EXCEPTION:
+
+A) When we do not write any gene:
+
+ INPUT: http://localhost:8080/geneInfo?gene_name=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+ B) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/geneInfo?gene_name=FRAT1&json=3
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ C) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/geneInfo?gene_nme=FRAT1&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+
+
+* TEST OF THE 6th ENDPOINT (geneCalc) when we get any EXCEPTION:
+
+A) When we do not write any gene:
+
+ INPUT: http://localhost:8080/geneCalc?gene_name=&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
+
+ B) When we write a different number instead of 1:
+
+ INPUT: http://localhost:8080/geneCalc?gene_name=FRAT1&json=7
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "json argument must be 1 to return json output"
+ }
+
+ C) When we fail in writing any of the words:
+
+ INPUT: http://localhost:8080/geneCalc?gene_me=FRAT1&json=1
+
+ OUTPUT IN THE 3 OPTIONS:
+
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint"
+ }
 
 

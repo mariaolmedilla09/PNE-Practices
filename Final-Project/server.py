@@ -53,7 +53,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+                if not 'gene_name' in arguments and not 'json' in arguments:
+                    contents = {'ERROR': 'You must introduce a gene name'}
+                else:
+                    contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/geneInfo":
             if 'gene_name' in arguments and not 'json' in arguments:
@@ -64,7 +67,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = {'ERROR': "json argument must be 1 to return json output"}
             else:
-                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+                if not 'gene_name' in arguments and not 'json' in arguments:
+                    contents = {'ERROR': 'You must introduce a gene name'}
+                else:
+                    contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/geneCalc":
             if 'gene_name' in arguments and not 'json' in arguments:
@@ -75,7 +81,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = {'ERROR': "json argument must be 1 to return json output"}
             else:
-                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+                if not 'gene_name' in arguments and not 'json' in arguments:
+                    contents = {'ERROR': 'You must introduce a gene name'}
+                else:
+                    contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         elif path_name == "/listSpecies":
             if 'limit' in arguments and not 'json' in arguments:

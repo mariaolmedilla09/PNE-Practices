@@ -38,7 +38,9 @@ http:// localhost:8080/listSpecies?limit=10
 
    * Output:
 
-{'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'}
+ {
+     'ERROR': 'endpoint arguments are not correct for this endpoint (Check you introduced a limit also!'
+ }
 
 * TEST 3: When you introduce limit 0:
   ----------------------------------
@@ -73,7 +75,9 @@ http:// localhost:8080/listSpecies?limit=10
 
   * Output:
 
- {"ERROR": "endpoint arguments are not correct for this endpoint (Check you introduced a limit also!"}
+ {
+    "ERROR": "endpoint arguments are not correct for this endpoint (Check you introduced a limit also!"
+ }
 
 
 
@@ -133,7 +137,9 @@ http:// localhost:8080/listSpecies?limit=10
 
    * Output:
 
- {"ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"}
+ {
+     "ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"
+ }
 
 * TEST 4: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
   ------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,12 +150,14 @@ http:// localhost:8080/listSpecies?limit=10
 
    * Output:
 
- {"ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"}
+ {
+     "ERROR": "endpoint arguments are not correct for this endpoint. Check you have provided the name of a species"
+ }
 
 
 
 
----> chromosomeLength endpoint
+---> chromosome_length endpoint
 
 * TEST 1: When it works perfectly with introduced both species and chromosome:
   ---------------------------------------------------------------------------
@@ -182,7 +190,9 @@ http:// localhost:8080/listSpecies?limit=10
 
   * Output:
 
- {"ERROR": "You missed the number of chromosome you want to check"}
+ {
+     "ERROR": "You missed the number of chromosome you want to check"
+ }
 
 * TEST 3: When you provide it the name of the chromosome but not the name of the species you wanna check:
   ------------------------------------------------------------------------------------------------------
@@ -193,7 +203,9 @@ http:// localhost:8080/listSpecies?limit=10
 
   * Output:
 
- {"ERROR": "You missed the name of the species you want to check"}
+ {
+     "ERROR": "You missed the name of the species you want to check"
+ }
 
 * TEST 4: When you do not provide any species nor chromosome name:
   ---------------------------------------------------------------
@@ -204,7 +216,9 @@ http:// localhost:8080/listSpecies?limit=10
 
   * Output:
 
- {"ERROR": "You missed the name of the species and the name of the chromosome you want to check"}
+ {
+     "ERROR": "You missed the name of the species and the name of the chromosome you want to check"
+ }
 
 * TEST 5: When you introduce a wrong parameter/ you miss one letter/ you confuse any character when writing manually the path in the browser.
   ------------------------------------------------------------------------------------------------------------------------------------------
@@ -215,11 +229,15 @@ http:// localhost:8080/listSpecies?limit=10
 
    * Output:
 
- {"ERROR": "You missed the number of chromosome you want to check"} ---> This happens because it stops in the error in which no chromosome is provided, as it does not detect any 'length' provided.
+ {
+     "ERROR": "You missed the number of chromosome you want to check"
+ }      ---> This happens because it stops in the error in which no chromosome is provided, as it does not detect any 'length' provided.
 
  The same happens in case we write the word 'species' wrong:
 
- {"ERROR": "You missed the name of the species you want to check"} ---> For the same reason as before.
+ {
+     "ERROR": "You missed the name of the species you want to check"
+ }      ---> For the same reason as before.
 
 
 
