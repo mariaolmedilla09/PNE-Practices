@@ -97,7 +97,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint. Check you have provided the name of a species'}
 
         elif path_name == "/chromosome_length":
             if 'species' in arguments and 'length' in arguments and not 'json' in arguments:
@@ -108,9 +108,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     contents = su.chromosome_length(arguments['species'][0],
                                                   arguments['length'][0], False)
                 else:
+
                     contents = {'ERROR': 'json argument must be 1 to return json output'}
             else:
-                contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
+                if 'species' in arguments and not 'length' in arguments and not 'json' in arguments:
+                    contents = {'ERROR' : 'You missed the number of chromosome you want to check'}
+                elif 'length' in arguments and not 'species' in arguments and not 'json' in arguments:
+                    contents = {'ERROR': 'You missed the name of the species you want to check'}
+                elif not 'length' in arguments and not 'species' in arguments and not 'json' in arguments:
+                    contents = {'ERROR': 'You missed the name of the species and the name of the chromosome you want to check'}
+                else:
+                    contents = {'ERROR': 'endpoint arguments are not correct for this endpoint'}
 
         else:
             contents = su.read_template_html_file("./html/error.html").render()

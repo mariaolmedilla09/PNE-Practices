@@ -107,7 +107,10 @@ def get_gene_id_by_name(gene_name):
         "KDR": "ENSMUSG00000062960",
         "ANK2": "ENSG00000145362"
     }
-    return genes_dict[gene_name]
+    if gene_name in genes_dict:
+        return genes_dict[gene_name]
+    elif not gene_name in genes_dict:
+        return "NONE"
 
 
 def gene_sequence(gene_name, return_html):
